@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Event Registrations{% endblock %}
+{% block content %}
+<h1>{{ event.title }} Registrations</h1>
+<p>Registered: {{ event.registration_count }} / {{ event.capacity or 'Unlimited' }}</p>
+{% if registrations.count() %}
+  <ul class="list">
+    {% for reg in registrations %}
+      <li>{{ reg.user.email }} - {{ reg.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No registrations yet.</p>
+{% endif %}
+{% endblock %}

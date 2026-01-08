@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<h1>Approved Events</h1>
+{% if pagination.items %}
+  <ul class="list">
+    {% for event in pagination.items %}
+      <li>
+        <a href="{{ url_for('student.event_detail', event_id=event.id) }}">{{ event.title }}</a>
+        <span class="muted">{{ event.start_datetime.strftime('%Y-%m-%d %H:%M') }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="pagination">
+    {% if pagination.has_prev %}
+      <a href="{{ url_for('student.events', page=pagination.prev_num) }}">Previous</a>
+    {% endif %}
+    <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+      <a href="{{ url_for('student.events', page=pagination.next_num) }}">Next</a>
+    {% endif %}
+  </div>
+{% else %}
+  <p>No events available.</p>
+{% endif %}
+{% endblock %}

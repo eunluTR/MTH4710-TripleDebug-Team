@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Club Applications{% endblock %}
+{% block content %}
+<h1>Club Applications</h1>
+<h2>Pending</h2>
+{% if pending.count() %}
+  <ul class="list">
+    {% for app in pending %}
+      <li>
+        <a href="{{ url_for('admin.club_application_detail', application_id=app.id) }}">
+          {{ app.proposed_name }}
+        </a>
+        - {{ app.applicant.email }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No pending applications.</p>
+{% endif %}
+
+<h2>Decided</h2>
+{% if decided.count() %}
+  <ul class="list">
+    {% for app in decided %}
+      <li>{{ app.proposed_name }} - {{ app.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No decisions yet.</p>
+{% endif %}
+{% endblock %}

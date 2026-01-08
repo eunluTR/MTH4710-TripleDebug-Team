@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Uni Clubs{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav>
+    <div class="nav-brand">
+      <a href="{{ url_for('student.home') }}">Uni Clubs</a>
+    </div>
+    <div class="nav-links">
+      {% if current_user.is_authenticated %}
+        {% if is_manager %}
+          <a href="{{ url_for('manager.dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('manager.club_profile') }}">Club Profile</a>
+          <a href="{{ url_for('manager.membership_applications') }}">Memberships</a>
+          <a href="{{ url_for('manager.events') }}">Events</a>
+          <a href="{{ url_for('manager.announcements') }}">Announcements</a>
+          <a href="{{ url_for('manager.logout') }}">Logout</a>
+        {% else %}
+          {% if current_role == UserRole.SKS_ADMIN %}
+            <a href="{{ url_for('admin.dashboard') }}">Admin Dashboard</a>
+            <a href="{{ url_for('admin.club_applications') }}">Club Applications</a>
+            <a href="{{ url_for('admin.event_proposals') }}">Event Proposals</a>
+            <a href="{{ url_for('admin.clubs') }}">Clubs</a>
+          {% else %}
+            <a href="{{ url_for('student.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('student.clubs') }}">Clubs</a>
+            <a href="{{ url_for('student.events') }}">Events</a>
+            <a href="{{ url_for('student.notifications') }}">Notifications</a>
+            <a href="{{ url_for('student.my_clubs') }}">My Clubs</a>
+          {% endif %}
+          <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% endif %}
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('auth.register') }}">Register</a>
+        <a href="{{ url_for('manager.login') }}">Club Manager</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% if form and form.errors %}
+      <div class="flash-container">
+        {% for errors in form.errors.values() %}
+          {% for error in errors %}
+            <div class="flash error">{{ error }}</div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

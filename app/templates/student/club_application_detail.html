@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Club Application{% endblock %}
+{% block content %}
+<h1>{{ application.proposed_name }}</h1>
+<p>Status: <strong>{{ application.status.value }}</strong></p>
+{% if application.admin_comment %}
+  <p>Admin comment: {{ application.admin_comment }}</p>
+{% endif %}
+<p>{{ application.proposed_description }}</p>
+<p><strong>Category:</strong> {{ application.proposed_category or 'General' }}</p>
+
+<p><a href="{{ url_for('student.manage_founders', app_id=application.id) }}">Manage founders</a></p>
+
+<h2>Founders</h2>
+{% if founders %}
+  <ul class="list">
+    {% for founder in founders %}
+      <li>{{ founder.invited_student.name }} {{ founder.invited_student.surname }} - {{ founder.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No founders invited yet.</p>
+{% endif %}
+{% endblock %}

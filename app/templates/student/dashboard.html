@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<h1>Student Dashboard</h1>
+<div class="grid">
+  <div class="card">
+    <h2>Quick Links</h2>
+    <ul>
+      <li><a href="{{ url_for('student.clubs') }}">Browse clubs</a></li>
+      <li><a href="{{ url_for('student.events') }}">Browse events</a></li>
+      <li><a href="{{ url_for('student.new_club_application') }}">New club application</a></li>
+      <li><a href="{{ url_for('student.my_clubs') }}">My clubs</a></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Recent Notifications</h2>
+    {% if notifications %}
+      <ul>
+        {% for note in notifications %}
+          <li>{{ note.title }} - {{ note.created_at.strftime('%Y-%m-%d') }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No notifications yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

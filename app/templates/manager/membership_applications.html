@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Membership Applications{% endblock %}
+{% block content %}
+<h1>Membership Applications</h1>
+<h2>Pending</h2>
+{% if pending.count() %}
+  <ul class="list">
+    {% for app in pending %}
+      <li>
+        {{ app.user.name }} {{ app.user.surname }} - {{ app.user.email }}
+        <form method="post" action="{{ url_for('manager.decide_membership', application_id=app.id) }}" class="form-inline">
+          {{ form.hidden_tag() }}
+          {{ form.decision() }}
+          {{ form.decision_reason() }}
+          {{ form.submit() }}
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No pending applications.</p>
+{% endif %}
+
+<h2>History</h2>
+{% if history.count() %}
+  <ul class="list">
+    {% for app in history %}
+      <li>{{ app.user.email }} - {{ app.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No history yet.</p>
+{% endif %}
+{% endblock %}

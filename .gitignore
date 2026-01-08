@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+instance/
+project.zip
+app/__pycache__/
+app/blueprints/__pycache__/
+app/forms/__pycache__/

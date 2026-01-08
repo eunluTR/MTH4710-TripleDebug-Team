@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<h1>Notifications</h1>
+{% if notifications %}
+  <ul class="list">
+    {% for note in notifications %}
+      <li class="notification {% if not note.is_read %}unread{% endif %}">
+        <div>
+          <strong>{{ note.title }}</strong>
+          <p>{{ note.body }}</p>
+          <span class="muted">{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+        </div>
+        {% if not note.is_read %}
+          <form method="post" class="inline-form">
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="notification_id" value="{{ note.id }}">
+            <button type="submit">Mark read</button>
+          </form>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No notifications yet.</p>
+{% endif %}
+{% endblock %}

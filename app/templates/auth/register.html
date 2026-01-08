@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h1>Student Registration</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>
+    {{ form.name.label }}
+    {{ form.name() }}
+  </label>
+  <label>
+    {{ form.surname.label }}
+    {{ form.surname() }}
+  </label>
+  <label>
+    {{ form.university_id.label }}
+    {{ form.university_id() }}
+  </label>
+  <label>
+    {{ form.email.label }}
+    {{ form.email() }}
+  </label>
+  <label>
+    {{ form.password.label }}
+    {{ form.password() }}
+  </label>
+  <label>
+    {{ form.confirm.label }}
+    {{ form.confirm() }}
+  </label>
+  {{ form.submit() }}
+</form>
+{% endblock %}

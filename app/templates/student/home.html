@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<h1>Welcome to Uni Clubs</h1>
+<p>Discover clubs, events, and campus opportunities.</p>
+<div class="actions">
+  <a class="button" href="{{ url_for('auth.login') }}">Login</a>
+  <a class="button secondary" href="{{ url_for('auth.register') }}">Register</a>
+</div>
+{% endblock %}

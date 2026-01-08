@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Event Proposals{% endblock %}
+{% block content %}
+<h1>Event Proposals</h1>
+<h2>Pending</h2>
+{% if pending.count() %}
+  <ul class="list">
+    {% for event in pending %}
+      <li>
+        <a href="{{ url_for('admin.event_proposal_detail', event_id=event.id) }}">{{ event.title }}</a>
+        - {{ event.club.name }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No pending events.</p>
+{% endif %}
+
+<h2>Decided</h2>
+{% if decided.count() %}
+  <ul class="list">
+    {% for event in decided %}
+      <li>{{ event.title }} - {{ event.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No decisions yet.</p>
+{% endif %}
+{% endblock %}

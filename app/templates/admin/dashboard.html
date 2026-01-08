@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h1>SKS Admin Dashboard</h1>
+<div class="grid">
+  <div class="card">
+    <h2>Pending Club Applications</h2>
+    <p>{{ pending_clubs }}</p>
+  </div>
+  <div class="card">
+    <h2>Pending Event Proposals</h2>
+    <p>{{ pending_events }}</p>
+  </div>
+</div>
+{% endblock %}

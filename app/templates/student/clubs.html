@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Clubs{% endblock %}
+{% block content %}
+<h1>Approved Clubs</h1>
+<form method="get" class="inline-form">
+  <input type="text" name="q" placeholder="Search clubs" value="{{ search or '' }}">
+  <button type="submit">Search</button>
+</form>
+{% if pagination.items %}
+  <ul class="list">
+    {% for club in pagination.items %}
+      <li>
+        <a href="{{ url_for('student.club_detail', club_id=club.id) }}">{{ club.name }}</a>
+        <span class="muted">{{ club.category or 'General' }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="pagination">
+    {% if pagination.has_prev %}
+      <a href="{{ url_for('student.clubs', page=pagination.prev_num, q=search) }}">Previous</a>
+    {% endif %}
+    <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+      <a href="{{ url_for('student.clubs', page=pagination.next_num, q=search) }}">Next</a>
+    {% endif %}
+  </div>
+{% else %}
+  <p>No clubs found.</p>
+{% endif %}
+{% endblock %}

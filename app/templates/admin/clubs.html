@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}All Clubs{% endblock %}
+{% block content %}
+<h1>Clubs</h1>
+{% if clubs.count() %}
+  <ul class="list">
+    {% for club in clubs %}
+      <li>
+        {{ club.name }} - {{ club.status.value }}
+        <a href="{{ url_for('admin.club_members', club_id=club.id) }}">Members</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No clubs yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Event Proposal{% endblock %}
+{% block content %}
+<h1>{{ event.title }}</h1>
+<p>Club: {{ event.club.name }}</p>
+<p>{{ event.description }}</p>
+<p><strong>Location:</strong> {{ event.location }}</p>
+<p><strong>Start:</strong> {{ event.start_datetime.strftime('%Y-%m-%d %H:%M') }}</p>
+<p><strong>End:</strong> {{ event.end_datetime.strftime('%Y-%m-%d %H:%M') }}</p>
+
+{% if event.status.value == 'PENDING_APPROVAL' %}
+  <form method="post" class="form">
+    {{ form.hidden_tag() }}
+    <label>{{ form.decision.label }}{{ form.decision() }}</label>
+    <label>{{ form.admin_comment.label }}{{ form.admin_comment() }}</label>
+    {{ form.submit() }}
+  </form>
+{% else %}
+  <p>Decision recorded on {{ event.decided_at.strftime('%Y-%m-%d') }}.</p>
+{% endif %}
+{% endblock %}

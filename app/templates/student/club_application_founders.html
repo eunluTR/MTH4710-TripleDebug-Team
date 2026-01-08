@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Manage Founders{% endblock %}
+{% block content %}
+<h1>Manage Founders for {{ application.proposed_name }}</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>{{ form.invited_email.label }}{{ form.invited_email() }}</label>
+  {{ form.submit() }}
+</form>
+
+<h2>Invited Founders</h2>
+{% if founders %}
+  <ul class="list">
+    {% for founder in founders %}
+      <li>
+        {{ founder.invited_student.email }} - {{ founder.status.value }}
+        <form method="post" action="{{ url_for('student.remove_founder', app_id=application.id, invite_id=founder.id) }}" class="inline-form">
+          {{ csrf_token() }}
+          <button type="submit">Remove</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No founders invited yet.</p>
+{% endif %}
+{% endblock %}

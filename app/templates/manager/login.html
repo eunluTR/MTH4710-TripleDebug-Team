@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Club Manager Login{% endblock %}
+{% block content %}
+<h1>Club Manager Login</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>
+    {{ form.email.label }}
+    {{ form.email() }}
+  </label>
+  <label>
+    {{ form.password.label }}
+    {{ form.password() }}
+  </label>
+  {{ form.submit() }}
+</form>
+{% endblock %}

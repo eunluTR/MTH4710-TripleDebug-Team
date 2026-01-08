@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My Clubs{% endblock %}
+{% block content %}
+<h1>My Clubs</h1>
+<h2>Memberships</h2>
+{% if memberships %}
+  <ul class="list">
+    {% for membership in memberships %}
+      <li>{{ membership.club.name }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No active memberships.</p>
+{% endif %}
+
+<h2>Applications</h2>
+{% if applications.count() %}
+  <ul class="list">
+    {% for app in applications %}
+      <li>{{ app.club.name }} - {{ app.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No applications yet.</p>
+{% endif %}
+{% endblock %}

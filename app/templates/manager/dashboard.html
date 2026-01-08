@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Manager Dashboard{% endblock %}
+{% block content %}
+<h1>{{ club.name }} Dashboard</h1>
+<div class="grid">
+  <div class="card">
+    <h2>Pending Memberships</h2>
+    <p>{{ pending_memberships }}</p>
+  </div>
+  <div class="card">
+    <h2>Pending Event Proposals</h2>
+    <p>{{ pending_events }}</p>
+  </div>
+  <div class="card">
+    <h2>Upcoming Events</h2>
+    {% if upcoming_events %}
+      <ul>
+        {% for event in upcoming_events %}
+          <li>{{ event.title }} - {{ event.start_datetime.strftime('%Y-%m-%d') }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No upcoming events.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

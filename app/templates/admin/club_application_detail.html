@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Club Application{% endblock %}
+{% block content %}
+<h1>{{ application.proposed_name }}</h1>
+<p>Status: {{ application.status.value }}</p>
+<p>{{ application.proposed_description }}</p>
+<p><strong>Category:</strong> {{ application.proposed_category or 'General' }}</p>
+
+<h2>Founders</h2>
+{% if application.founders.count() %}
+  <ul class="list">
+    {% for founder in application.founders %}
+      <li>{{ founder.invited_student.email }} - {{ founder.status.value }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No founders invited.</p>
+{% endif %}
+
+{% if application.status.value == 'PENDING' %}
+  <form method="post" class="form">
+    {{ form.hidden_tag() }}
+    <label>{{ form.decision.label }}{{ form.decision() }}</label>
+    <label>{{ form.admin_comment.label }}{{ form.admin_comment() }}</label>
+    <label>{{ form.club_email.label }}{{ form.club_email() }}</label>
+    <label>{{ form.initial_password.label }}{{ form.initial_password() }}</label>
+    {{ form.submit() }}
+  </form>
+{% else %}
+  <p>Decision recorded on {{ application.decided_at.strftime('%Y-%m-%d') }}.</p>
+{% endif %}
+{% endblock %}

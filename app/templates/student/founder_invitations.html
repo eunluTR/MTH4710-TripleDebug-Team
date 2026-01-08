@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Founder Invitations{% endblock %}
+{% block content %}
+<h1>Founder Invitations</h1>
+{% if invites.count() %}
+  <ul class="list">
+    {% for invite in invites %}
+      <li>
+        {{ invite.club_application.proposed_name }} - {{ invite.status.value }}
+        {% if invite.status.value == 'INVITED' %}
+          <form method="post" action="{{ url_for('student.accept_invite', invite_id=invite.id) }}" class="inline-form">
+            {{ form.hidden_tag() }}
+            <button type="submit">Accept</button>
+          </form>
+          <form method="post" action="{{ url_for('student.reject_invite', invite_id=invite.id) }}" class="inline-form">
+            {{ form.hidden_tag() }}
+            <button type="submit">Reject</button>
+          </form>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No invitations.</p>
+{% endif %}
+{% endblock %}

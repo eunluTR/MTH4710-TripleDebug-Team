@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ club.name }}{% endblock %}
+{% block content %}
+<h1>{{ club.name }}</h1>
+<p>{{ club.description }}</p>
+<p><strong>Category:</strong> {{ club.category or 'General' }}</p>
+
+{% if existing_membership %}
+  <p class="status success">You are a member of this club.</p>
+{% elif existing_application %}
+  <p class="status info">Application status: {{ existing_application.status.value }}</p>
+{% else %}
+  <form method="post" action="{{ url_for('student.apply_membership', club_id=club.id) }}">
+    {{ form.hidden_tag() }}
+    <label>
+      {{ form.message.label }}
+      {{ form.message() }}
+    </label>
+    {{ form.submit() }}
+  </form>
+{% endif %}
+{% endblock %}

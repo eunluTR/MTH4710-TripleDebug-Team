@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}New Event Proposal{% endblock %}
+{% block content %}
+<h1>New Event Proposal</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>{{ form.title.label }}{{ form.title() }}</label>
+  <label>{{ form.description.label }}{{ form.description() }}</label>
+  <label>{{ form.location.label }}{{ form.location() }}</label>
+  <label>{{ form.start_datetime.label }}{{ form.start_datetime() }}</label>
+  <label>{{ form.end_datetime.label }}{{ form.end_datetime() }}</label>
+  <label>{{ form.capacity.label }}{{ form.capacity() }}</label>
+  <label>{{ form.registration_deadline.label }}{{ form.registration_deadline() }}</label>
+  {{ form.submit() }}
+</form>
+<p class="helper">Use format YYYY-MM-DD HH:MM</p>
+{% endblock %}

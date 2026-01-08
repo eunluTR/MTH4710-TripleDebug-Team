@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}New Announcement{% endblock %}
+{% block content %}
+<h1>New Announcement</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>{{ form.title.label }}{{ form.title() }}</label>
+  <label>{{ form.body.label }}{{ form.body() }}</label>
+  {{ form.submit() }}
+</form>
+{% endblock %}

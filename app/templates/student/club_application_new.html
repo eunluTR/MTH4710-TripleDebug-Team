@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}New Club Application{% endblock %}
+{% block content %}
+<h1>New Club Application</h1>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>{{ form.proposed_name.label }}{{ form.proposed_name() }}</label>
+  <label>{{ form.proposed_description.label }}{{ form.proposed_description() }}</label>
+  <label>{{ form.proposed_category.label }}{{ form.proposed_category() }}</label>
+  <label>{{ form.founders_note.label }}{{ form.founders_note() }}</label>
+  {{ form.submit() }}
+</form>
+{% endblock %}

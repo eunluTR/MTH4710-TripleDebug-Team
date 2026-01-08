@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Club Members{% endblock %}
+{% block content %}
+<h1>{{ club.name }} Members</h1>
+{% if members %}
+  <ul class="list">
+    {% for member in members %}
+      <li>{{ member.user.email }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No members.</p>
+{% endif %}
+{% endblock %}
